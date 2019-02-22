@@ -4,7 +4,9 @@
   color: black;
   cursor: pointer;
 }
-
+.GamePiece.selected {
+  cursor: default;
+}
 .GamePiece.X {
   color: red;
 }

@@ -1,18 +1,27 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import GamePiece from '../components/Game/GamePiece';
 
-describe('GamePiece', () => {
-  const piece = shallow(<GamePiece />);
-  const handleClick = (event, key, player) => {
+import Player from '../models/Player';
 
-  }
-  it('GamePiece renders and has no values', () => {
-    //expect(piece.children()).toHaveLength(9);
+const player = new Player('Tester', 'O', 2);
+const handleClick = (event, player) => {
+ //console.log('click called')
+}
+
+describe('GamePiece', () => {
+  const piece = mount(<GamePiece handleClick={handleClick} pieceKey='1' player={{}} />);
+  
+  it('Renders and has props: player, key, handleClick', () => {
+    piece.simulate('click', player)
+    // Test the GameBoard sending back the player as a prop
+    piece.setProps({'player': player})
+    expect(piece.props().player.piece).toEqual('O')
+    expect(piece.props().player.piece).not.toEqual('X')
   });
   
   it('GamePiece accepts a click', () => {
-  
+    piece.simulate('click', player)
   });
   
   it('GamePiece reports its owning Player', () => {
@@ -20,6 +29,7 @@ describe('GamePiece', () => {
   });
   
   it('GamePiece can be reset', () => {
-  
+    piece.setProps({'player': {}})
+    expect(piece.props().player.piece).toEqual(undefined)
   });
 })

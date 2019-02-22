@@ -5,6 +5,7 @@ describe('Player', () => {
     const player = new Player();
     expect(player.displayText).toEqual('Player, dude');
     expect(player.piece).toEqual('X');
+    expect(player.name).toEqual('dude');
     expect(player.id).toEqual(1);
   })
 });

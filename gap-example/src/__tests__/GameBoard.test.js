@@ -12,7 +12,7 @@ describe('GameBoard',  () => {
       expect(board.childAt(0).find('.GamePiece').length).toEqual(9);
     });
     it('GameBoard starts with Player 1 (X)', () => {
-      expect(boardInstance.state.player).toEqual(1);
+      expect(boardInstance.state.player).toEqual(0);
     });
   });
  
