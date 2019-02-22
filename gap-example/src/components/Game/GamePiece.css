@@ -1,7 +1,8 @@
 .GamePiece {
   font-size: 3em;
-  padding: 1em;
+  padding: 10px;
   color: black;
+  cursor: pointer;
 }
 
 .GamePiece.X {

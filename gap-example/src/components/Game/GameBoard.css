@@ -3,11 +3,15 @@
   max-width: 600px;
   flex-direction: row;
   margin: 20px auto;
+  padding: 20px;
   flex-wrap: wrap;
+  background-color: rgb(233, 197, 126);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
 }
 
 .GameBoard > div.GamePiece {
-  width: calc(33% - 2em);
+  width: calc(33% - 20px);
+  height: 120px;
   border: 3px solid #222;
 }
 

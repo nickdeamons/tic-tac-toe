@@ -24,7 +24,7 @@ class GameBoard extends React.Component {
   render() {
   return (
     <div>
-      {this.state.player}
+      <h2><strong>Player {this.state.player}</strong>, it's your turn!</h2>
       <div className="GameBoard">
         {createBoard()}
       </div>

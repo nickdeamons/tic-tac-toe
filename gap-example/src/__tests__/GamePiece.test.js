@@ -1,21 +1,25 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-// import GamePiece from '../components/Game/GamePiece';
+import GamePiece from '../components/Game/GamePiece';
 
-it('GamePiece renders and has no values', () => {
-  // Render a checkbox with label in the document
-  // const piece = shallow(<GamePiece />);
-  // expect(pice.children()).toHaveLength(9);
-});
+describe('GamePiece', () => {
+  const piece = shallow(<GamePiece />);
+  const handleClick = (event, key, player) => {
 
-it('GamePiece accepts a Player click', () => {
-
-});
-
-it('GamePiece reports its owning Player', () => {
-
-});
-
-it('GamePiece can be reset', () => {
-
-});
+  }
+  it('GamePiece renders and has no values', () => {
+    //expect(piece.children()).toHaveLength(9);
+  });
+  
+  it('GamePiece accepts a click', () => {
+  
+  });
+  
+  it('GamePiece reports its owning Player', () => {
+  
+  });
+  
+  it('GamePiece can be reset', () => {
+  
+  });
+})
