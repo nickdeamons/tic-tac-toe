@@ -9,7 +9,7 @@ describe('GameBoard',  () => {
   // shallow render the Gameboard
   describe('Initialize',  () => {
     it('GameBoard renders and has 9 GamePieces', () => {
-      expect(board.childAt(0).find('.GamePiece').length).toEqual(9);
+      expect(board.find('.GameBoard').find('.GamePiece').length).toEqual(9);
     });
     it('GameBoard starts with Player 1 (X)', () => {
       expect(boardInstance.state.player).toEqual(0);

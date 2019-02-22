@@ -36,11 +36,13 @@ class GamePiece extends React.Component {
     })
     return (
       <div className={gamePieceClasses} key={this.props.pieceKey} onClick={this.handleClick}>
-      {(this.state.player && this.state.selected) ?
-        this.state.player.piece === 'X' ?
-        'X' : 'O'
-         : ' ' 
-      } 
+        <div>
+        {(this.state.player && this.state.selected) ?
+          this.state.player.piece === 'X' ?
+          'X' : 'O'
+          : ' ' 
+        } 
+        </div>
       </div>
     )
   }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import GamePiece from './GamePiece';
 
 import './GameBoard.css';
 
@@ -9,10 +8,16 @@ class GameBoard extends React.Component {
      
   constructor() {
     super();
+
+    const gamePieces = new Array();
+    for(let i=0; i< 9;i++) {
+      gamePieces.push({player: null, piece: ''})
+    }
     this.state = {
       lastClicked: -1,
       moveList: [],
       player: 0,
+      gamePieces: gamePieces,
       players: [new Player('X_X', 'X', 0), new Player('O_O', 'O', 1)]
     }
   }
@@ -27,7 +32,6 @@ class GameBoard extends React.Component {
   }
   handleGamePieceClick = (index) => {
     const moves = ([].concat(this.state.moveList))
-    console.log(typeof(moves), moves)
     moves.push(index)
     this.setState({
       lastClicked: index,
@@ -36,20 +40,15 @@ class GameBoard extends React.Component {
     this.nextPlayerTurn()
   }
   undo = (index) => {
-    const moves = this.state.moveList.slice(-1)
+    const move = this.state.moveList.splice(-1);
+    const moves = this.state.moveList.slice(-1);
+    this.state.gamePieces[move].reset();
     this.setState({
       lastClicked: index,
       moveList: moves
     })
   }
-  createBoard = () => {
-    let gameBoard = []
-    for(let i = 0; i < 9; i++) {
-      gameBoard.push(<GamePiece key={i} handlePieceClick={() => this.handleGamePieceClick(i)} player={this.currentPlayer} undo={() => this.undo(i)} />)
-    }
-    return gameBoard
-  }
-  render() {{}
+  render() {
     return (
       <div>
         <h2><strong>{this.state.players[this.state.player].displayText}</strong>, it's your turn!</h2>
@@ -60,7 +59,11 @@ class GameBoard extends React.Component {
           })
         }</div>
         <div className="GameBoard">
-          {this.createBoard()}
+          {this.state.gamePieces.map((element, index) => {
+            return (<div key={`piece_${index}`} className="GamePiece" onClick={() => { this.handleGamePieceClick(index)}}>
+              {element.piece  === 'X' || element.piece === 'O' ? element.piece : ' '}
+            </div>)
+          })}
         </div>
       </div>
     )
