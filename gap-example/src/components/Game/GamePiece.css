@@ -1,0 +1,9 @@
+.GamePiece {
+  font-size: 3em;
+  padding: 1em;
+  color: black;
+}
+
+.GamePiece.X {
+  color: red;
+}
