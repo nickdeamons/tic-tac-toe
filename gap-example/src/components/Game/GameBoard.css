@@ -45,12 +45,16 @@
   text-shadow: 2px 1px 3px rgba(0, 0, 0, 0.3);
   
 }
+.GamePiece.selected {
+  cursor: text;
+}
 .GamePiece > div {
   transition: opacity 0.5s;
   opacity: 0.5;
 }
 .GamePiece.selected > div {
   opacity: 1;
+
 }
 .GamePiece.O {
   color: darkblue ;

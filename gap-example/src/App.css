@@ -34,3 +34,33 @@
     transform: rotate(360deg);
   }
 }
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px auto;
+  max-width: 600px;
+  transition: all 0.5s;
+}
+button {
+  border: 0;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+button:hover {
+  opacity: 0.75;
+}
+button.primary {
+  background-color: rgb(128, 32, 32);
+  
+  color: white;
+ 
+}
+
+button.secondary {
+  background-color: rgb(171, 172, 170);
+  color: #222;
+}

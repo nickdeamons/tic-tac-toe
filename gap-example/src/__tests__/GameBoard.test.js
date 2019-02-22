@@ -18,9 +18,10 @@ describe('GameBoard',  () => {
  
   describe('Gameplay', () => {
     it('Shows current player', () => {
-      
+      // Player, X_X, it's your turn!
+      expect(board.find('#currentPlayer').text()).toEqual('Player, X_X, it\'s your turn!')
     });
-    it('Triggers next player on a GamePiece click', () => {
+    it('Updates the correct piece on click', () => {
       //board.childAt(0).find('.GamePiece').simulate('click')
 
     });
