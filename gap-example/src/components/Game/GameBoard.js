@@ -11,11 +11,13 @@ class GameBoard extends React.Component {
     super();
     this.state = {
       player: 0,
-      players: [new Player('X_X'), new Player('O_O')]
+      players: [new Player('X_X', 'X', 0), new Player('O_O', '0', 1)]
     }
   }
 
-
+  get currentPlayer() {
+    return {...this.state.players[this.state.player]}
+  }
   nextPlayerTurn = () => {
     this.setState({
       player: Math.abs(this.state.player - 1)
@@ -27,11 +29,11 @@ class GameBoard extends React.Component {
   createBoard = () => {
     let gameBoard = []
     for(let i = 0; i < 9; i++) {
-      gameBoard.push(<GamePiece key={i} handleClick={this.handleGamePieceClick} />)
+      gameBoard.push(<GamePiece key={i} handlePieceClick={this.handleGamePieceClick} player={this.currentPlayer} />)
     }
     return gameBoard
   }
-  render() {
+  render() {{}
     return (
       <div>
         <h2><strong>{this.state.players[this.state.player].displayText}</strong>, it's your turn!</h2>

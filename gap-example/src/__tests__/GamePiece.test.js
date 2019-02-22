@@ -10,7 +10,7 @@ const handleClick = (event, player) => {
 }
 
 describe('GamePiece', () => {
-  const piece = mount(<GamePiece handleClick={handleClick} pieceKey='1' player={{}} />);
+  const piece = mount(<GamePiece handlePieceClick={handleClick} pieceKey='1' player={{}} />);
   
   it('Renders and has props: player, key, handleClick', () => {
     piece.simulate('click', player)
@@ -29,7 +29,8 @@ describe('GamePiece', () => {
   });
   
   it('GamePiece can be reset', () => {
-    piece.setProps({'player': {}})
-    expect(piece.props().player.piece).toEqual(undefined)
+    piece.instance().reset()
+    expect(piece.state().selected).toEqual(false)
+    expect(piece.state().player.piece).toEqual(undefined)
   });
 })

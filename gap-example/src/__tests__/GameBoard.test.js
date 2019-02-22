@@ -21,7 +21,8 @@ describe('GameBoard',  () => {
       
     });
     it('Gameboard piece clicks triggers next player', () => {
-      
+      //board.childAt(0).find('.GamePiece').simulate('click')
+
     });
     it('Checks for a winner', () => {
       
