@@ -3,10 +3,18 @@
   padding: 10px;
   color: black;
   cursor: pointer;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 2px 1px 3px rgba(0, 0, 0, 0.3);
 }
 .GamePiece.selected {
-  cursor: default;
+  
+}
+.GamePiece.O {
+  color: darkblue ;
 }
 .GamePiece.X {
-  color: red;
+  color: darkred;
 }

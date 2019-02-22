@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import classNames from 'classnames/bind';
 
 import './GamePiece.css';
 
@@ -27,8 +28,14 @@ class GamePiece extends React.Component {
     })
   }
   render() {
+    let gamePieceClasses = classNames({
+      X: this.state.player.piece === 'X',
+      O: this.state.player.piece === 'O',
+      selected: this.state.selected,
+      GamePiece: 'GamePiece'
+    })
     return (
-      <div className="GamePiece" key={this.props.pieceKey} onClick={this.handleClick}>
+      <div className={gamePieceClasses} key={this.props.pieceKey} onClick={this.handleClick}>
       {(this.state.player && this.state.selected) ?
         this.state.player.piece === 'X' ?
         'X' : 'O'

@@ -17,10 +17,10 @@ describe('GameBoard',  () => {
   });
  
   describe('Gameplay', () => {
-    it('GameBoard shows current player', () => {
+    it('Shows current player', () => {
       
     });
-    it('Gameboard piece clicks triggers next player', () => {
+    it('Triggers next player on a GamePiece click', () => {
       //board.childAt(0).find('.GamePiece').simulate('click')
 
     });
@@ -30,6 +30,9 @@ describe('GameBoard',  () => {
     it('Gameboard has TicTacToe!', () => {
 
     });
+    it('Can undo last move', () => {
+
+    })
     describe('Game Over', () => {
       it('GameBoard reports a winner or tie', () => {
 
