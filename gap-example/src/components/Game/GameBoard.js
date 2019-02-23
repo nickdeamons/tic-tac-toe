@@ -79,14 +79,17 @@ class GameBoard extends React.Component {
       const winner = this.hasWinner(gamePieces)
         if(!winner.piece) {
           if(moves.length === 9) {
+            // cats game
             this.setState({
               lastClicked: index,
               moveList: moves,
               gamePieces: gamePieces,
               player: 0,
-              draw: true
+              draw: true,
+              activeGame: false
             })
           } else {
+            // keep playing
             this.setState({
               lastClicked: index,
               moveList: moves,
@@ -94,8 +97,8 @@ class GameBoard extends React.Component {
               player: Math.abs(this.state.player - 1)
             })
           }
-          // keep the game going
         } else {
+          // declare winner
           this.setState({
             winner: winner,
             lastClicked: index,

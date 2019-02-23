@@ -46,9 +46,9 @@
   z-index: 1;
 }
 .GameBoard > div.GamePiece {
-  width: calc(33% - 20px);
-  height: 120px;
-  border: 2px outset #222;
+  width: calc(33% - 22px);
+   height: 120px;
+  border: 2px solid #222;
 }
 
 .GameBoard > div.GamePiece:nth-child(n+1) {

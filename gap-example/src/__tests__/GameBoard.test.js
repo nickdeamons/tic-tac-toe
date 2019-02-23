@@ -35,7 +35,16 @@ describe('GameBoard',  () => {
       
     })
     it('Can "cats"', () => {
-
+      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(2).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(5).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(8).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(7).simulate('click')
+      expect(boardInstance.state.draw).toEqual(true)
     })
     it('Has a TicTacToe!', () => {
       board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
