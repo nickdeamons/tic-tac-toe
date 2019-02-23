@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 
 import './GameBoard.css';
 
+import GameStatus from './GameStatus'
+
 import Player from '../../models/Player';
 import WinConditions from '../../models/WinConditions';
 
@@ -152,17 +154,10 @@ class GameBoard extends React.Component {
       playerTwoSelected: []
     })
   }
-  showWinner() {
-    return(
-      this.state.winner.name ?
-      <h3>Player: {this.state.winner.name} has won the game!</h3> : ''
-    )
-  }
   render() {
     return (
       <div>
-        <h2 id="currentPlayer"><strong>{this.state.players[this.state.player].displayText}</strong>, it's your turn!</h2>
-        {this.showWinner()}
+        <GameStatus currentPlayer={this.state.players[this.state.player]} winner={this.state.winner} />
         <div className={ classNames({ Cats: this.state.draw, X: this.state.winner.piece === 'X', O: this.state.winner.piece === 'O', GameBoard: 'GameBoard', GameOver: !this.state.activeGame})}>
           {this.state.gamePieces.map((element, index) => {
              let gamePieceClasses = classNames({

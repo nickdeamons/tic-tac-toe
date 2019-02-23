@@ -7,15 +7,15 @@ class GameStatus extends React.Component {
   }
   render() {
    return(
-    <div> 
+    <div>
+      {this.props.winner.piece === undefined ? 
       <h2 id="currentPlayer">
         <strong>{this.props.currentPlayer.displayText}</strong>, it's your turn!
+      </h2> :
+      <h2 className="winner">
+        <span>{this.props.winner.name} has won the game!</span>
       </h2>
-      <div className="winner">
-        {this.props.winner.piece !== undefined ?
-        <span>{this.props.winner.name} has won the game!</span>: ''
-        }
-      </div>
+      }
     </div>
     )
   }
