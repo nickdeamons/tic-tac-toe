@@ -11,12 +11,12 @@ class GameBoard extends React.Component {
   constructor() {
     super();
 
-    const gamePieces = new Array();
-    for(let i=0; i< 9;i++) {
-      gamePieces.push({piece: '', selected: false})
-    }
+    const gamePieces = new Array(9);
+    gamePieces.fill({piece: '', selected: false});
+
     this.state = {
       activeGame: true,
+      draw: false,
       gamePieces: gamePieces,
       lastClicked: -1,
       moveList: [],
@@ -56,7 +56,7 @@ class GameBoard extends React.Component {
       }
     })
     let winner = {}
-    for(var i=0; i<WinConditions.length;i++) {
+    for(var i=0; i<WinConditions.length && !winner.piece;i++) {
       const condition = WinConditions[i]
       if(condition.every((value, index) => {
         return value===playerOneSelected[index]
@@ -78,12 +78,22 @@ class GameBoard extends React.Component {
       const gamePieces = this.setPiece(index)
       const winner = this.hasWinner(gamePieces)
         if(!winner.piece) {
-          this.setState({
-            lastClicked: index,
-            moveList: moves,
-            gamePieces: gamePieces,
-            player: Math.abs(this.state.player - 1)
-          })
+          if(moves.length === 9) {
+            this.setState({
+              lastClicked: index,
+              moveList: moves,
+              gamePieces: gamePieces,
+              player: 0,
+              draw: true
+            })
+          } else {
+            this.setState({
+              lastClicked: index,
+              moveList: moves,
+              gamePieces: gamePieces,
+              player: Math.abs(this.state.player - 1)
+            })
+          }
           // keep the game going
         } else {
           this.setState({
@@ -118,7 +128,8 @@ class GameBoard extends React.Component {
       lastClicked: -1,
       moveList: [],
       activeGame: true,
-      winner: {}
+      winner: {},
+      draw: false
     })
   }
   showWinner() {
@@ -132,7 +143,7 @@ class GameBoard extends React.Component {
       <div>
         <h2 id="currentPlayer"><strong>{this.state.players[this.state.player].displayText}</strong>, it's your turn!</h2>
         {this.showWinner()}
-        <div className="GameBoard">
+        <div className={ classNames({ Cats: this.state.draw, X: this.state.winner.piece === 'X', O: this.state.winner.piece === 'O', GameBoard: 'GameBoard'})}>
           {this.state.gamePieces.map((element, index) => {
              let gamePieceClasses = classNames({
               X: element.piece === 'X',
@@ -147,7 +158,9 @@ class GameBoard extends React.Component {
         </div>
         { this.state.moveList.length > 0 ?
           <div className="buttons">
-            <button className="secondary" id="undo-btn" onClick={this.undo}>Undo</button>
+           {this.state.activeGame ? 
+            <button className="secondary" id="undo-btn" onClick={this.undo}>Undo</button> : ''
+           }
             <button className="primary" id="reset-btn" onClick={this.reset}>Reset</button>
           </div>
           : '' 

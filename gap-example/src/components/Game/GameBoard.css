@@ -8,8 +8,43 @@
   background-color: rgb(233, 197, 126);
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.7);
   border-radius: 20px;
+  position: relative;
 }
+.GameBoard:before {
+  position: absolute;
+  font-size: 600px;
+  text-align: center;
+  left: 0;
+  top: -40px;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  opacity: 0.8;
+  transition: all 1.5s;
+  content: ' ';
+  z-index: -1;
+}
+.GameBoard.X:before {
+  color: darkred;
+  content:'X';
+  z-index: 1;
 
+}
+.GameBoard.O:before {
+  color: darkblue ;
+  content:'O';
+  z-index: 1;
+}
+.GameBoard.Cats:before {
+  font-size: 400px;
+  content:"\01F431";
+  top: -20px;
+  z-index: 1;
+}
 .GameBoard > div.GamePiece {
   width: calc(33% - 20px);
   height: 120px;
