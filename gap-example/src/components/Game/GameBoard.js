@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import './GameBoard.css';
 
 import Player from '../../models/Player';
+import WinConditions from '../../models/WinConditions';
 
 class GameBoard extends React.Component {
      
@@ -15,11 +16,13 @@ class GameBoard extends React.Component {
       gamePieces.push({piece: '', selected: false})
     }
     this.state = {
+      activeGame: true,
       gamePieces: gamePieces,
       lastClicked: -1,
       moveList: [],
       player: 0,
-      players: [new Player('X_X', 'X', 0), new Player('O_O', 'O', 1)]
+      players: [new Player('1', 'X', 0), new Player('2', 'O', 1)],
+      winner: {}
     }
   }
 
@@ -34,9 +37,7 @@ class GameBoard extends React.Component {
   setPiece = (index) => {
     const gamePieces = [].concat(this.state.gamePieces)
     gamePieces[index] = {piece: this.state.players[this.state.player].piece, selected: true};
-    this.setState({
-      gamePieces: gamePieces
-    })
+    return gamePieces
   }
   unSetPiece = (index) => {
     const gamePieces = [].concat(this.state.gamePieces)
@@ -45,16 +46,59 @@ class GameBoard extends React.Component {
       gamePieces: gamePieces
     })
   }
+  hasWinner = (pieces) => {
+    const playerOneSelected = new Array(9);
+    const playerTwoSelected = new Array(9);
+    playerOneSelected.fill(false)
+    playerTwoSelected.fill(false)
+    pieces.forEach((gamePiece, index) => {
+      if(gamePiece.piece === 'X' ) {
+        playerOneSelected[index] = true
+      }
+      if(gamePiece.piece === 'O') {
+        playerTwoSelected[index] = true
+      }
+    })
+    let winner = {}
+    //WinConditions.forEach((condition) => {
+    for(var i=0; i<WinConditions.length;i++) {
+      const condition = WinConditions[i]
+      if(condition.every((value, index) => {
+        return value===playerOneSelected[index]
+      })) {
+        winner = this.state.players[0]
+      }
+      if(condition.every((value, index) => {
+        return value===playerTwoSelected[index]
+      })) {
+        winner = this.state.players[1]
+      }
+    }
+    return winner;
+  }
   handleGamePieceClick = (index) => {
-    if(!this.state.gamePieces[index].selected) {
+    if(this.state.activeGame && !this.state.gamePieces[index].selected) {
       const moves = ([].concat(this.state.moveList))
       moves.push(index)
-      this.setPiece(index)
-      this.setState({
-        lastClicked: index,
-        moveList: moves,
-      })
-      this.nextPlayerTurn()
+      const gamePieces = this.setPiece(index)
+      const winner = this.hasWinner(gamePieces)
+        if(!winner.piece) {
+          this.setState({
+            lastClicked: index,
+            moveList: moves,
+            gamePieces: gamePieces,
+          })
+          // keep the game going
+          this.nextPlayerTurn()
+        } else {
+          this.setState({
+            winner: winner,
+            lastClicked: index,
+            moveList: moves,
+            gamePieces: gamePieces,
+            activeGame: false
+          })
+        }
     }
   }
   undo = () => {
@@ -77,7 +121,8 @@ class GameBoard extends React.Component {
       gamePieces: gamePieces,
       player: 0,
       lastClicked: -1,
-      moveList: []
+      moveList: [],
+      activeGame: true
     })
   }
   render() {
@@ -100,7 +145,7 @@ class GameBoard extends React.Component {
         { this.state.moveList.length > 0 ?
           <div className="buttons">
             <button className="secondary" onClick={this.undo}>Undo</button>
-            <button className="primary" onClick={this.reset}>Reset</button>
+            <button className="primary" id="reset-btn" onClick={this.reset}>Reset</button>
           </div>
           : '' 
         }

@@ -19,7 +19,7 @@ describe('GameBoard',  () => {
   describe('Gameplay', () => {
     it('Shows current player', () => {
       // Player, X_X, it's your turn!
-      expect(board.find('#currentPlayer').text()).toEqual('Player, X_X, it\'s your turn!')
+      expect(board.find('#currentPlayer').text()).toEqual('Player, 1, it\'s your turn!')
     });
     it('Updates the correct piece and player on click', () => {
       //board.childAt(0).find('.GamePiece').simulate('click')
@@ -28,9 +28,11 @@ describe('GameBoard',  () => {
       expect(boardInstance.state.gamePieces[0].piece).toEqual('X')
     });
     it('Checks for a winner', () => {
-      
+      expect(boardInstance.state.winner.pieces).toEqual(undefined)
+      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      expect(boardInstance.state.winner.pieces).toEqual(undefined)
     });
-    it('Is playable until full', () => {
+    it('Is playable until full or draw', () => {
       
     })
     it('Gameboard has TicTacToe!', () => {
@@ -39,8 +41,9 @@ describe('GameBoard',  () => {
     it('Can undo last move', () => {
 
     })
-    it('Can reset', () => {
-
+    it('Shows reset', () => {
+      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      expect(board.find('#reset-btn').length).toEqual(1)
     })
     describe('Game Over', () => {
       it('GameBoard reports a winner or tie', () => {
