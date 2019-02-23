@@ -3,10 +3,13 @@ import {mount} from 'enzyme';
 import GameBoard from '../components/Game/GameBoard';
 
 describe('GameBoard',  () => {
-  let board, boardInstance
+  let board, boardInstance, gamePieces
   beforeEach(() => {
     board = mount(<GameBoard />)
+    // create state reference
     boardInstance = board.instance();
+    // grab all the game pieces
+    gamePieces =  board.find('.GameBoard').children('.GamePiece')
   })
   describe('Initialize',  () => {
     it('Renders and has 9 GamePieces', () => {
@@ -22,88 +25,78 @@ describe('GameBoard',  () => {
       expect(board.find('#currentPlayer').text()).toEqual('Player, 1, it\'s your turn!')
     });
     it('Updates the correct piece and player on click', () => {
-      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      gamePieces.at(0).simulate('click')
       expect(boardInstance.state.player).toEqual(1)
       expect(boardInstance.state.gamePieces[0].piece).toEqual('X')
     });
     it('Checks for a winner', () => {
       expect(boardInstance.state.winner.pieces).toEqual(undefined)
-      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      gamePieces.at(0).simulate('click')
       expect(boardInstance.state.winner.pieces).toEqual(undefined)
     });
 
     it('Can "cats"', () => {
-      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(2).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(5).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(8).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(7).simulate('click')
+      gamePieces.at(0).simulate('click')
+      gamePieces.at(1).simulate('click')
+      gamePieces.at(2).simulate('click')
+      gamePieces.at(3).simulate('click')
+      gamePieces.at(6).simulate('click')
+      gamePieces.at(4).simulate('click')
+      gamePieces.at(5).simulate('click')
+      gamePieces.at(8).simulate('click')
+      gamePieces.at(7).simulate('click')
       expect(boardInstance.state.draw).toEqual(true)
     })
     it('Has a TicTacToe!', () => {
-      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
-      board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
+      gamePieces.at(0).simulate('click')
+      gamePieces.at(1).simulate('click')
+      gamePieces.at(3).simulate('click')
+      gamePieces.at(4).simulate('click')
+      gamePieces.at(6).simulate('click')
       expect(boardInstance.state.winner.piece).toEqual('X')
     });
     it('Can undo moves', () => {
-      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      gamePieces.at(0).simulate('click')
       expect(board.find('#undo-btn').length).toEqual(1)
       expect(boardInstance.state.gamePieces[0].piece).toEqual('X')
       board.find('#undo-btn').at(0).simulate('click')
       expect(boardInstance.state.gamePieces[0].piece).toEqual('')
     })
     it('Shows reset', () => {
-      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      gamePieces.at(0).simulate('click')
       expect(board.find('#reset-btn').length).toEqual(1)
     })
-    it('Performs reset', () => {
-      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
-      expect(board.find('#reset-btn').length).toEqual(1)
-      board.find('#reset-btn').at(0).simulate('click')
-      // check to see if that piece has reset
-      expect(boardInstance.state.gamePieces[0].piece).toEqual('')
-      // check more state properties to ensure resets
-      expect(boardInstance.state.player).toEqual(0)
-      expect(boardInstance.state.lastClicked).toEqual(-1)
-      expect(boardInstance.state.moveList.length).toEqual(0)
-    })
+
     describe('Game Over', () => {
       it('Has X win', () => {
-        board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
+        gamePieces.at(0).simulate('click')
+        gamePieces.at(1).simulate('click')
+        gamePieces.at(3).simulate('click')
+        gamePieces.at(4).simulate('click')
+        gamePieces.at(6).simulate('click')
         expect(boardInstance.state.winner.piece).toEqual('X')
       });
       it('Has O win', () => {
-        board.find('.GameBoard').children('.GamePiece').at(8).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(7).simulate('click')
+        gamePieces.at(8).simulate('click')
+        gamePieces.at(1).simulate('click')
+        gamePieces.at(3).simulate('click')
+        gamePieces.at(4).simulate('click')
+        gamePieces.at(6).simulate('click')
+        gamePieces.at(7).simulate('click')
         expect(boardInstance.state.winner.piece).toEqual('O')
       })
       it('GameBoard forces user to reset board', () => {
-        board.find('.GameBoard').children('.GamePiece').at(8).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
-        board.find('.GameBoard').children('.GamePiece').at(7).simulate('click')
+        gamePieces.at(8).simulate('click')
+        gamePieces.at(1).simulate('click')
+        gamePieces.at(3).simulate('click')
+        gamePieces.at(4).simulate('click')
+        gamePieces.at(6).simulate('click')
+        gamePieces.at(7).simulate('click')
         expect(board.find('#reset-btn').length).toEqual(1)
         expect(board.find('#undo-btn').length).toEqual(0)
       });
       it('GameBoard resets successfully', () => {
-        board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+        gamePieces.at(0).simulate('click')
         expect(board.find('#reset-btn').length).toEqual(1)
         board.find('#reset-btn').at(0).simulate('click')
         // check to see if that piece has reset
