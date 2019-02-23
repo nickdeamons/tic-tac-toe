@@ -24,30 +24,31 @@
   align-items: center;
   align-content: center;
   opacity: 0.8;
-  transition: opacity 1.5s;
+  transition: transform 1.5s;
   content: ' ';
   z-index: -1;
+  transform: scale(0.1);
+}
+.GameBoard.GameOver:before {
+  transform: scale(1);
+  z-index: 1
 }
 .GameBoard.X:before {
   color: darkred;
   content:'X';
-  z-index: 1;
-
 }
 .GameBoard.O:before {
   color: darkblue ;
   content:'O';
-  z-index: 1;
 }
 .GameBoard.Cats:before {
-  font-size: 200px;
+  font-size: 300px;
   content:"😺";
   top: -20px;
-  z-index: 1;
 }
 .GameBoard > div.GamePiece {
   width: calc(33% - 22px);
-   height: 120px;
+  height: 120px;
   border: 2px solid #222;
 }
 

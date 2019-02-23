@@ -162,7 +162,7 @@ class GameBoard extends React.Component {
       <div>
         <h2 id="currentPlayer"><strong>{this.state.players[this.state.player].displayText}</strong>, it's your turn!</h2>
         {this.showWinner()}
-        <div className={ classNames({ Cats: this.state.draw, X: this.state.winner.piece === 'X', O: this.state.winner.piece === 'O', GameBoard: 'GameBoard'})}>
+        <div className={ classNames({ Cats: this.state.draw, X: this.state.winner.piece === 'X', O: this.state.winner.piece === 'O', GameBoard: 'GameBoard', GameOver: !this.state.activeGame})}>
           {this.state.gamePieces.map((element, index) => {
              let gamePieceClasses = classNames({
               X: element.piece === 'X',
