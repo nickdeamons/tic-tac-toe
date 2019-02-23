@@ -1,28 +1,27 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import GameBoard from '../components/Game/GameBoard';
-//import GamePiece from '../components/Game/GamePiece';
 
 describe('GameBoard',  () => {
-  const board = mount(<GameBoard />)
-  const boardInstance = board.instance();
-  // shallow render the Gameboard
+  let board, boardInstance
+  beforeEach(() => {
+    board = mount(<GameBoard />)
+    boardInstance = board.instance();
+  })
   describe('Initialize',  () => {
-    it('GameBoard renders and has 9 GamePieces', () => {
+    it('Renders and has 9 GamePieces', () => {
       expect(board.find('.GameBoard').find('.GamePiece').length).toEqual(9);
     });
-    it('GameBoard starts with Player 1 (X)', () => {
+    it('Starts with Player 1 (X)', () => {
       expect(boardInstance.state.player).toEqual(0);
     });
   });
  
   describe('Gameplay', () => {
     it('Shows current player', () => {
-      // Player, X_X, it's your turn!
       expect(board.find('#currentPlayer').text()).toEqual('Player, 1, it\'s your turn!')
     });
     it('Updates the correct piece and player on click', () => {
-      //board.childAt(0).find('.GamePiece').simulate('click')
       board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
       expect(boardInstance.state.player).toEqual(1)
       expect(boardInstance.state.gamePieces[0].piece).toEqual('X')
@@ -35,11 +34,23 @@ describe('GameBoard',  () => {
     it('Is playable until full or draw', () => {
       
     })
-    it('Gameboard has TicTacToe!', () => {
+    it('Can "cats"', () => {
 
+    })
+    it('Has a TicTacToe!', () => {
+      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
+      board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
+      expect(boardInstance.state.winner.piece).toEqual('X')
     });
-    it('Can undo last move', () => {
-
+    it('Can undo moves', () => {
+      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      expect(board.find('#undo-btn').length).toEqual(1)
+      expect(boardInstance.state.gamePieces[0].piece).toEqual('X')
+      board.find('#undo-btn').at(0).simulate('click')
+      expect(boardInstance.state.gamePieces[0].piece).toEqual('')
     })
     it('Shows reset', () => {
       board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')

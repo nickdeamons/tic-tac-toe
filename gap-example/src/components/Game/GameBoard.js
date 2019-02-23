@@ -29,11 +29,7 @@ class GameBoard extends React.Component {
   get currentPlayer() {
     return {...this.state.players[this.state.player]}
   }
-  nextPlayerTurn = () => {
-    this.setState({
-      player: Math.abs(this.state.player - 1)
-    })
-  }
+
   setPiece = (index) => {
     const gamePieces = [].concat(this.state.gamePieces)
     gamePieces[index] = {piece: this.state.players[this.state.player].piece, selected: true};
@@ -60,7 +56,6 @@ class GameBoard extends React.Component {
       }
     })
     let winner = {}
-    //WinConditions.forEach((condition) => {
     for(var i=0; i<WinConditions.length;i++) {
       const condition = WinConditions[i]
       if(condition.every((value, index) => {
@@ -87,9 +82,9 @@ class GameBoard extends React.Component {
             lastClicked: index,
             moveList: moves,
             gamePieces: gamePieces,
+            player: Math.abs(this.state.player - 1)
           })
           // keep the game going
-          this.nextPlayerTurn()
         } else {
           this.setState({
             winner: winner,
@@ -109,8 +104,8 @@ class GameBoard extends React.Component {
     this.setState({
       lastClicked: move,
       moveList: moves,
+      player: Math.abs(this.state.player - 1)
     })
-    this.nextPlayerTurn()
   }
   reset = () => {
     const gamePieces = new Array();
@@ -122,13 +117,21 @@ class GameBoard extends React.Component {
       player: 0,
       lastClicked: -1,
       moveList: [],
-      activeGame: true
+      activeGame: true,
+      winner: {}
     })
+  }
+  showWinner() {
+    return(
+      this.state.winner.name ?
+      <h3>Player: {this.state.winner.name} has won the game!</h3> : ''
+    )
   }
   render() {
     return (
       <div>
         <h2 id="currentPlayer"><strong>{this.state.players[this.state.player].displayText}</strong>, it's your turn!</h2>
+        {this.showWinner()}
         <div className="GameBoard">
           {this.state.gamePieces.map((element, index) => {
              let gamePieceClasses = classNames({
@@ -144,7 +147,7 @@ class GameBoard extends React.Component {
         </div>
         { this.state.moveList.length > 0 ?
           <div className="buttons">
-            <button className="secondary" onClick={this.undo}>Undo</button>
+            <button className="secondary" id="undo-btn" onClick={this.undo}>Undo</button>
             <button className="primary" id="reset-btn" onClick={this.reset}>Reset</button>
           </div>
           : '' 
