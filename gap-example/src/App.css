@@ -3,6 +3,7 @@
   text-align: center;
   color: white;
   padding: 20px;
+  min-height: 100vh;
 }
 
 .App-logo {

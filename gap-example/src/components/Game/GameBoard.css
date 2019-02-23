@@ -36,6 +36,7 @@
 .GameBoard.X:before {
   color: darkred;
   content:'X';
+  left: -10px;
 }
 .GameBoard.O:before {
   color: darkblue ;
