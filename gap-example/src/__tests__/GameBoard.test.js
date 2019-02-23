@@ -93,7 +93,14 @@ describe('GameBoard',  () => {
         expect(boardInstance.state.winner.piece).toEqual('O')
       })
       it('GameBoard forces user to reset board', () => {
-        
+        board.find('.GameBoard').children('.GamePiece').at(8).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(7).simulate('click')
+        expect(board.find('#reset-btn').length).toEqual(1)
+        expect(board.find('#undo-btn').length).toEqual(0)
       });
       it('GameBoard resets successfully', () => {
       
