@@ -157,7 +157,7 @@ class GameBoard extends React.Component {
   render() {
     return (
       <div>
-        <GameStatus currentPlayer={this.state.players[this.state.player]} winner={this.state.winner} />
+        <GameStatus draw={this.state.draw} currentPlayer={this.state.players[this.state.player]} winner={this.state.winner} />
         <div className={ classNames({ Cats: this.state.draw, X: this.state.winner.piece === 'X', O: this.state.winner.piece === 'O', GameBoard: 'GameBoard', GameOver: !this.state.activeGame})}>
           {this.state.gamePieces.map((element, index) => {
              let gamePieceClasses = classNames({
