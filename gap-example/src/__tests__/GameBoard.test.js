@@ -31,9 +31,7 @@ describe('GameBoard',  () => {
       board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
       expect(boardInstance.state.winner.pieces).toEqual(undefined)
     });
-    it('Is playable until full or draw', () => {
-      
-    })
+
     it('Can "cats"', () => {
       board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
       board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
@@ -77,9 +75,23 @@ describe('GameBoard',  () => {
       expect(boardInstance.state.moveList.length).toEqual(0)
     })
     describe('Game Over', () => {
-      it('GameBoard reports a winner or tie', () => {
-
+      it('Has X win', () => {
+        board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
+        expect(boardInstance.state.winner.piece).toEqual('X')
       });
+      it('Has O win', () => {
+        board.find('.GameBoard').children('.GamePiece').at(8).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(1).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(3).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(4).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(6).simulate('click')
+        board.find('.GameBoard').children('.GamePiece').at(7).simulate('click')
+        expect(boardInstance.state.winner.piece).toEqual('O')
+      })
       it('GameBoard forces user to reset board', () => {
         
       });

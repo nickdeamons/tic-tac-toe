@@ -24,7 +24,7 @@
   align-items: center;
   align-content: center;
   opacity: 0.8;
-  transition: all 1.5s;
+  transition: opacity 1.5s;
   content: ' ';
   z-index: -1;
 }
@@ -40,8 +40,8 @@
   z-index: 1;
 }
 .GameBoard.Cats:before {
-  font-size: 400px;
-  content:"\01F431";
+  font-size: 200px;
+  content:"😺";
   top: -20px;
   z-index: 1;
 }

@@ -22,6 +22,8 @@ class GameBoard extends React.Component {
       moveList: [],
       player: 0,
       players: [new Player('1', 'X', 0), new Player('2', 'O', 1)],
+      playerOneSelected: [],
+      playerTwoSelected: [],
       winner: {}
     }
   }
@@ -38,45 +40,41 @@ class GameBoard extends React.Component {
   unSetPiece = (index) => {
     const gamePieces = [].concat(this.state.gamePieces)
     gamePieces[index] = {piece: '', selected: false};
-    this.setState({
-      gamePieces: gamePieces
-    })
+    return gamePieces
   }
-  hasWinner = (pieces) => {
-    const playerOneSelected = new Array(9);
-    const playerTwoSelected = new Array(9);
-    playerOneSelected.fill(false)
-    playerTwoSelected.fill(false)
-    pieces.forEach((gamePiece, index) => {
-      if(gamePiece.piece === 'X' ) {
-        playerOneSelected[index] = true
-      }
-      if(gamePiece.piece === 'O') {
-        playerTwoSelected[index] = true
-      }
-    })
+  hasWinner = (playerOneMoves, playerTwoMoves) => {
     let winner = {}
+   
     for(var i=0; i<WinConditions.length && !winner.piece;i++) {
       const condition = WinConditions[i]
       if(condition.every((value, index) => {
-        return value===playerOneSelected[index]
+        return value===playerOneMoves[index]
       })) {
         winner = this.state.players[0]
       }
       if(condition.every((value, index) => {
-        return value===playerTwoSelected[index]
+        return value===playerTwoMoves[index]
       })) {
         winner = this.state.players[1]
       }
-    }
+    }  /**/
     return winner;
   }
   handleGamePieceClick = (index) => {
     if(this.state.activeGame && !this.state.gamePieces[index].selected) {
       const moves = ([].concat(this.state.moveList))
       moves.push(index)
+      const playerOneMoves = [].concat(this.state.playerOneSelected)
+      const playerTwoMoves = [].concat(this.state.playerTwoSelected)
+      if(this.state.player === 0) {
+        playerOneMoves.push(index)
+        playerOneMoves.sort()
+      } else {
+        playerTwoMoves.push(index)
+        playerTwoMoves.sort()
+      }
       const gamePieces = this.setPiece(index)
-      const winner = this.hasWinner(gamePieces)
+      const winner = this.hasWinner(playerOneMoves, playerTwoMoves)
         if(!winner.piece) {
           if(moves.length === 9) {
             // cats game
@@ -86,7 +84,9 @@ class GameBoard extends React.Component {
               gamePieces: gamePieces,
               player: 0,
               draw: true,
-              activeGame: false
+              activeGame: false,
+              playerOneSelected: playerOneMoves,
+              playerTwoSelected: playerTwoMoves,
             })
           } else {
             // keep playing
@@ -94,6 +94,8 @@ class GameBoard extends React.Component {
               lastClicked: index,
               moveList: moves,
               gamePieces: gamePieces,
+              playerOneSelected: playerOneMoves,
+              playerTwoSelected: playerTwoMoves,
               player: Math.abs(this.state.player - 1)
             })
           }
@@ -104,6 +106,8 @@ class GameBoard extends React.Component {
             lastClicked: index,
             moveList: moves,
             gamePieces: gamePieces,
+            playerOneSelected: playerOneMoves,
+            playerTwoSelected: playerTwoMoves,
             activeGame: false
           })
         }
@@ -113,10 +117,20 @@ class GameBoard extends React.Component {
     const move = this.state.moveList.slice(this.state.moveList.length - 1).pop();
     const moves = [].concat(this.state.moveList)
     moves.length = moves.length - 1;
-    this.unSetPiece(move)
+    const gamePieces = this.unSetPiece(move)
+    const playerOneMoves = [].concat(this.state.playerOneSelected)
+    const playerTwoMoves = [].concat(this.state.playerTwoSelected)
+    if(this.state.player === 1) { // it would be the opposite players turn
+      playerOneMoves.length = playerOneMoves.length - 1
+    } else {
+      playerTwoMoves.length = playerTwoMoves.length - 1
+    }
     this.setState({
       lastClicked: move,
       moveList: moves,
+      gamePieces: gamePieces,
+      playerOneSelected: playerOneMoves,
+      playerTwoSelected: playerTwoMoves,
       player: Math.abs(this.state.player - 1)
     })
   }
@@ -132,7 +146,9 @@ class GameBoard extends React.Component {
       moveList: [],
       activeGame: true,
       winner: {},
-      draw: false
+      draw: false,
+      playerOneSelected: [],
+      playerTwoSelected: []
     })
   }
   showWinner() {
