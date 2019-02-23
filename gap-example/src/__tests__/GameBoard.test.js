@@ -45,6 +45,17 @@ describe('GameBoard',  () => {
       board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
       expect(board.find('#reset-btn').length).toEqual(1)
     })
+    it('Performs reset', () => {
+      board.find('.GameBoard').children('.GamePiece').at(0).simulate('click')
+      expect(board.find('#reset-btn').length).toEqual(1)
+      board.find('#reset-btn').at(0).simulate('click')
+      // check to see if that piece has reset
+      expect(boardInstance.state.gamePieces[0].piece).toEqual('')
+      // check more state properties to ensure resets
+      expect(boardInstance.state.player).toEqual(0)
+      expect(boardInstance.state.lastClicked).toEqual(-1)
+      expect(boardInstance.state.moveList.length).toEqual(0)
+    })
     describe('Game Over', () => {
       it('GameBoard reports a winner or tie', () => {
 
