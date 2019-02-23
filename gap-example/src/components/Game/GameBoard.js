@@ -47,13 +47,13 @@ class GameBoard extends React.Component {
    
     for(var i=0; i<WinConditions.length && !winner.piece;i++) {
       const condition = WinConditions[i]
-      if(condition.every((value, index) => {
-        return value===playerOneMoves[index]
+      if(condition.every((value) => {
+        return playerOneMoves.indexOf(value) > -1
       })) {
         winner = this.state.players[0]
       }
-      if(condition.every((value, index) => {
-        return value===playerTwoMoves[index]
+      if(condition.every((value) => {
+        return playerTwoMoves.indexOf(value) > -1
       })) {
         winner = this.state.players[1]
       }
@@ -73,6 +73,7 @@ class GameBoard extends React.Component {
         playerTwoMoves.push(index)
         playerTwoMoves.sort()
       }
+      console.log(playerOneMoves, playerTwoMoves)
       const gamePieces = this.setPiece(index)
       const winner = this.hasWinner(playerOneMoves, playerTwoMoves)
         if(!winner.piece) {

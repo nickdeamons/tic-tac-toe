@@ -1,5 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# TicTacToe: React Edition
+
+## 1.0 Release 
+
+This runs a basic TicTacToe Game with Enzyme and Jest testing.
+
+
 ## Available Scripts
 
 In the project directory, you can run:

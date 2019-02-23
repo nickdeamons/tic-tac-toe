@@ -85,6 +85,7 @@ describe('GameBoard',  () => {
         gamePieces.at(7).simulate('click')
         expect(boardInstance.state.winner.piece).toEqual('O')
       })
+      // See WinConditions test file for all the other scenarions (2.0 tests?)
       it('GameBoard forces user to reset board', () => {
         gamePieces.at(8).simulate('click')
         gamePieces.at(1).simulate('click')
@@ -101,7 +102,7 @@ describe('GameBoard',  () => {
         board.find('#reset-btn').at(0).simulate('click')
         // check to see if that piece has reset
         expect(boardInstance.state.gamePieces[0].piece).toEqual('')
-        // check more state properties to ensure resets
+        // check the overall application state properties to ensure resets
         expect(boardInstance.state.player).toEqual(0)
         expect(boardInstance.state.lastClicked).toEqual(-1)
         expect(boardInstance.state.moveList.length).toEqual(0)
