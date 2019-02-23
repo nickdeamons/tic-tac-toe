@@ -43,15 +43,16 @@ class GameBoard extends React.Component {
     return gamePieces
   }
   hasWinner = (playerOneMoves, playerTwoMoves) => {
-    let winner = {}
-   
+    let winner = {} // if this remains empty there is no winner yet
     for(var i=0; i<WinConditions.length && !winner.piece;i++) {
       const condition = WinConditions[i]
+      // check to see if every element in the condition array exists within the players' moves
       if(condition.every((value) => {
         return playerOneMoves.indexOf(value) > -1
       })) {
         winner = this.state.players[0]
       }
+      // check to see if every element in the condition array exists within the players' moves
       if(condition.every((value) => {
         return playerTwoMoves.indexOf(value) > -1
       })) {
@@ -73,7 +74,6 @@ class GameBoard extends React.Component {
         playerTwoMoves.push(index)
         playerTwoMoves.sort()
       }
-      console.log(playerOneMoves, playerTwoMoves)
       const gamePieces = this.setPiece(index)
       const winner = this.hasWinner(playerOneMoves, playerTwoMoves)
         if(!winner.piece) {
