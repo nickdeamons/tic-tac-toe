@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classNames from 'classnames/bind';
 
-import './GameBoard.css';
+import './styles/GameBoard.css';
 
 import GameStatus from './GameStatus'
 
