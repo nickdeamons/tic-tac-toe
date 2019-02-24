@@ -21,7 +21,7 @@ describe('GameBoard',  () => {
   });
  
   describe('Gameplay', () => {
-    it('Shows current player', () => {
+    it('Shows current player on load', () => {
       expect(board.find('#currentPlayer').text()).toEqual('Player, 1, it\'s your turn!')
     });
     it('Updates the correct piece and player on click', () => {

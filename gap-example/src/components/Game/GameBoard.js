@@ -158,24 +158,26 @@ class GameBoard extends React.Component {
     return (
       <div>
         <GameStatus draw={this.state.draw} currentPlayer={this.state.players[this.state.player]} winner={this.state.winner} />
-        <div className={ classNames({ Cats: this.state.draw, X: this.state.winner.piece === 'X', O: this.state.winner.piece === 'O', GameBoard: 'GameBoard', GameOver: !this.state.activeGame})}>
-          {this.state.gamePieces.map((element, index) => {
-             let gamePieceClasses = classNames({
-              X: element.piece === 'X',
-              O: element.piece === 'O',
-              selected: element.selected,
-              GamePiece: 'GamePiece'
-            })
-            return (<div key={`piece_${index}`} className={gamePieceClasses} onClick={() => { this.handleGamePieceClick(index)}}>
-              {element.piece  === 'X' || element.piece === 'O' ? element.piece : ' '}
-            </div>)
-          })}
+        <div className="GameBoard__wrap">
+          <div className={ classNames({ Cats: this.state.draw, X: this.state.winner.piece === 'X', O: this.state.winner.piece === 'O', GameBoard: 'GameBoard', GameOver: !this.state.activeGame})}>
+            {this.state.gamePieces.map((element, index) => {
+              let gamePieceClasses = classNames({
+                X: element.piece === 'X',
+                O: element.piece === 'O',
+                selected: element.selected,
+                GamePiece: 'GamePiece'
+              })
+              return (<div key={`piece_${index}`} className={gamePieceClasses} onClick={() => { this.handleGamePieceClick(index)}}>
+                {element.piece  === 'X' || element.piece === 'O' ? element.piece : ' '}
+              </div>)
+            })}
+          </div>
         </div>
         { this.state.moveList.length > 0 ?
           <div className="buttons">
-           {this.state.activeGame ? 
+          {this.state.activeGame ? 
             <button className="secondary" id="undo-btn" onClick={this.undo}>Undo</button> : ''
-           }
+          }
             <button className="primary" id="reset-btn" onClick={this.reset}>Reset</button>
           </div>
           : '' 

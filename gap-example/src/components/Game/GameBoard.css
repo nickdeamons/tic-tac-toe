@@ -1,13 +1,13 @@
 .GameBoard {
   display: flex;
-  max-width: 600px;
+ 
   flex-direction: row;
-  margin: 20px auto;
-  padding: 20px;
-  flex-wrap: wrap;
+  padding: 0px;
   background-color: rgb(233, 197, 126);
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.7);
-  border-radius: 20px;
+  
+  border-radius: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, .70);
   position: relative;
 }
 .GameBoard:before {
@@ -47,6 +47,13 @@
   content:"😺";
   top: -20px;
 }
+
+.GameBoard__wrap {
+  position: relative;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
 .GameBoard > div.GamePiece {
   width: calc(33% - 22px);
   height: 120px;
@@ -81,10 +88,29 @@
   align-items: center;
   justify-content: center;
   text-shadow: 2px 1px 3px rgba(0, 0, 0, 0.3);
-  
+  position: relative;
+ 
+}
+.GamePiece:before {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  border-radius: 10px;
+  content: ' ';
+  z-index: 2;
+  pointer-events: none;
+  transition: all 0.5s;
+  box-shadow:  0px 0px 4px rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .GamePiece.selected {
   cursor: text;
+}
+.GamePiece.selected:before {
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow:inset 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 .GamePiece > div {
   transition: opacity 0.5s;
@@ -99,4 +125,16 @@
 }
 .GamePiece.X {
   color: darkred;
+}
+
+#undo-btn {
+  position: relative;
+  padding-left: 10px;
+}
+#undo-btn:before {
+  content: '⭯';
+  font-size: 1.25em;
+  line-height: 0.75em;
+  padding-right: 10px;
+  display: inline-block;
 }

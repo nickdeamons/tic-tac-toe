@@ -50,6 +50,9 @@ button {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 0.05em;
+  border-radius: 0.25em;
+  border:2px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 }
 button:hover {
   opacity: 0.75;
