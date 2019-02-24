@@ -21,11 +21,11 @@ class GameBoard extends React.Component {
       draw: false,
       gamePieces: gamePieces,
       lastClicked: -1,
-      moveList: [],
+      moveList: new Array(),
       player: 0,
       players: [new Player('1', 'X', 0), new Player('2', 'O', 1)],
-      playerOneSelected: [],
-      playerTwoSelected: [],
+      playerOneSelected: new Array(),
+      playerTwoSelected: new Array(),
       winner: {}
     }
   }

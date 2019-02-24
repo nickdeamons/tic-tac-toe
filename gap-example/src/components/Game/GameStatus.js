@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import PropTypes from 'prop-types'; // ES6
 
 class GameStatus extends React.Component {
   constructor(props) {
@@ -28,6 +28,12 @@ class GameStatus extends React.Component {
     )
   }
 
+}
+
+GameStatus.propTypes = {
+  draw: PropTypes.bool.isRequired,
+  winner: PropTypes.object.isRequired,
+  currentPlayer: PropTypes.object.isRequired
 }
 
 export default GameStatus
