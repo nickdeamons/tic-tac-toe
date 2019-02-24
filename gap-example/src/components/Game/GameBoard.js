@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import './styles/GameBoard.css';
 
 import GameStatus from './GameStatus'
+import GamePiece from './GamePiece';
 
 import Player from '../../models/Player';
 import WinConditions from '../../models/WinConditions';
@@ -161,15 +162,9 @@ class GameBoard extends React.Component {
         <div className="GameBoard__wrap">
           <div className={ classNames({ Cats: this.state.draw, X: this.state.winner.piece === 'X', O: this.state.winner.piece === 'O', GameBoard: 'GameBoard', GameOver: !this.state.activeGame})}>
             {this.state.gamePieces.map((element, index) => {
-              let gamePieceClasses = classNames({
-                X: element.piece === 'X',
-                O: element.piece === 'O',
-                selected: element.selected,
-                GamePiece: 'GamePiece'
-              })
-              return (<div key={`piece_${index}`} className={gamePieceClasses} onClick={() => { this.handleGamePieceClick(index)}}>
-                {element.piece  === 'X' || element.piece === 'O' ? element.piece : ' '}
-              </div>)
+              return (<div key={`piece_${index}`} className="GamePiece" onClick={() => { this.handleGamePieceClick(index)}} >
+                <GamePiece piece={element.piece} selected={element.selected}/>
+                </div>)
             })}
           </div>
         </div>

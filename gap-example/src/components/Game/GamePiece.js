@@ -13,7 +13,6 @@ class GamePiece extends React.Component {
       X: this.props.piece === 'X',
       O: this.props.piece === 'O',
       selected: this.props.selected,
-      GamePiece: 'GamePiece'
     })
     return (
       <div className={gamePieceClasses} >
@@ -27,10 +26,9 @@ class GamePiece extends React.Component {
   }
 }
 
-GameStatus.propTypes = {
-  draw: PropTypes.bool.isRequired,
-  winner: PropTypes.object.isRequired,
-  currentPlayer: PropTypes.object.isRequired
+GamePiece.propTypes = {
+  piece: PropTypes.string.isRequired,
+  selected: PropTypes.bool.isRequired
 }
 
 
